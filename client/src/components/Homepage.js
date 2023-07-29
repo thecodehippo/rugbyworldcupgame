@@ -47,6 +47,7 @@ const Homepage = () => {
                 "Content-Type": "application/json",
             },
         })
+        console.log(response);
         setSubmittedPicks(true);
     }
 
