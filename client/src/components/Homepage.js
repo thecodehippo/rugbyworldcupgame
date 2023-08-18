@@ -4,6 +4,9 @@ import RoundsCarousel from './RoundsCarousel';
 import styled from "styled-components";
 import Fixtures from './Fixtures';
 import BottomDrawer from './BottomDrawer';
+import TopNav from './TopNav';
+import Info from './Info';
+import Leaderboard from './Leaderboard';
 
 const fixturesUrl = '/api/fixtures';
 const currentRoundUrl = "/api/currentRound";
@@ -17,6 +20,7 @@ const Homepage = () => {
     const [listOfPicks, setListOfPicks] = useState([]);
     const [data, setData] = useState();
     const [submittedPicks, setSubmittedPicks] = useState(false);
+    const [nav, setNav] = useState("Picks");
 
     const addPick = (newPick) => {
         const idTeamFromPick = newPick.substring(0, newPick.indexOf(":"));
@@ -33,6 +37,7 @@ const Homepage = () => {
     function createBody(pickArr, alias) {
         return {
             alias: alias,
+            round: currentRound,
             picks: pickArr
         }
     }
@@ -49,12 +54,37 @@ const Homepage = () => {
         })
         console.log(response);
         setSubmittedPicks(true);
+        setTimeout(() => {
+            setSubmittedPicks(false);
+        }, 3000);
     }
 
     const changeCurrentRound = (event) => {
         let text = event.target.innerText;
         let roundNum = text.substring(text.length - 1, text.length);
         setCurrentRound(parseInt(roundNum));
+    }
+
+    const handleNavChange = (newNav) => {
+        setListOfPicks([])
+        setNav(newNav);
+    }
+
+    const pageSelector = () => {
+        switch(nav) {
+
+            case "Info":
+                return <Info />
+
+            case "Leaderboard":
+                return <Leaderboard />
+
+            default:
+                return (<div>
+                    <RoundsCarousel currentRound={currentRound} rounds={rounds} changeRound={changeCurrentRound} currentRoundImmutable={currentRoundImmutable} /> 
+                    <Fixtures data={data} listOfPicks={listOfPicks} currentRound={currentRound} addPick={addPick} currentRoundImmutable={currentRoundImmutable}   />
+                </div>)
+        }
     }
 
     useEffect(() => {
@@ -80,13 +110,15 @@ const Homepage = () => {
 
     return (
         <CanvasStyle>
-            {ready ? 
-            <div>
-                <RoundsCarousel currentRound={currentRound} rounds={rounds} changeRound={changeCurrentRound} currentRoundImmutable={currentRoundImmutable} /> 
-                <Fixtures data={data} listOfPicks={listOfPicks} currentRound={currentRound} addPick={addPick} currentRoundImmutable={currentRoundImmutable}   />
-            </div>
-            : <div>Loading</div>}
+            <TopNav changeNav={handleNavChange} navItem={nav} />
+
+            {ready ?
+                pageSelector() :
+                "Loading"
+            }
+
             {listOfPicks.length > 0 ? <BottomDrawer submittedPicks={submittedPicks} sendPicks={sendPicks} picks={listOfPicks} data={data.results} currentRound={currentRound} /> : null}
+            
         </CanvasStyle>
     )
 }

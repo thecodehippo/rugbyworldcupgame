@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 const BottomDrawer = (props) => {
     const [alias, setAlias] = useState("");
+    let numberFixtures = props.data.filter(i => i.game_week === props.currentRound);
 
     function handleChange(event) {
         setAlias(event.target.value);
@@ -10,9 +11,10 @@ const BottomDrawer = (props) => {
 
     const sendPicks = () => {
         props.sendPicks(alias);
+        setTimeout(() => {
+            setAlias("");
+        }, 3000);
     }
-
-    let numberFixtures = props.data.filter(i => i.game_week === props.currentRound);
 
     function returnButton() {
         if(!props.submittedPicks) {
@@ -70,7 +72,7 @@ const NotReadyButtonBottomDrawerStyle = styled.div`
 
 const SubmittedButtonBottomDrawerStyle = styled.div`
     display: inline-block;
-    background-color: #4299e1;
+    background-color: green;
     border-radius: 50px;
     padding: 8px 16px;
     font-size: 16px;

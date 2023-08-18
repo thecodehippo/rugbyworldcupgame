@@ -95,33 +95,3 @@ const TeamStyle = styled.div`
 `
 
 export default Fixture;
-
-/*
-    return(
-        <FixtureStyle>
-            <PickStyle>
-                <TeamStyle>
-                {props.fixture.home}
-                </TeamStyle>
-                {buildPicks()}
-                {props.fixture.home === team && pick === "1-10" ? <PickedResult score={"1-10"} makePick={makePick} team={props.fixture.home} /> : <Result score={"1-10"} makePick={makePick} team={props.fixture.home} />}
-                {props.fixture.home === team && pick === "11-20" ? <PickedResult score={"11-20"} makePick={makePick} team={props.fixture.home} /> : <Result score={"11-20"} makePick={makePick} team={props.fixture.home} />}
-                {props.fixture.home === team && pick === "21-30" ? <PickedResult score={"21-30"} makePick={makePick} team={props.fixture.home} /> : <Result score={"21-30"} makePick={makePick} team={props.fixture.home} />}
-                {props.fixture.home === team && pick === "31+" ? <PickedResult score={"31+"} makePick={makePick} team={props.fixture.home} /> : <Result score={"31+"} makePick={makePick} team={props.fixture.home} />}
-            </PickStyle>
-            <PickStyle>
-            <Draw score={"Draw"} makePick={makePick} team="Draw" pickedResult={pick} pickedTeam={team} />
-            </PickStyle>
-            <PickStyle>
-                <TeamStyle>
-                {props.fixture.away}
-                </TeamStyle>
-                {props.fixture.away === team && pick === "1-10" ? <PickedResult score={"1-10"} makePick={makePick} team={props.fixture.away} /> : <Result score={"1-10"} makePick={makePick} team={props.fixture.away} />}
-                {props.fixture.away === team && pick === "11-20" ? <PickedResult score={"11-20"} makePick={makePick} team={props.fixture.away} /> : <Result score={"11-20"} makePick={makePick} team={props.fixture.away} />}
-                {props.fixture.away === team && pick === "21-30" ? <PickedResult score={"21-30"} makePick={makePick} team={props.fixture.away} /> : <Result score={"21-30"} makePick={makePick} team={props.fixture.away} />}
-                {props.fixture.away === team && pick === "31+" ? <PickedResult score={"31+"} makePick={makePick} team={props.fixture.away} /> : <Result score={"31+"} makePick={makePick} team={props.fixture.away} />}
-            </PickStyle>
-        </FixtureStyle>
-    )
-
-    */
